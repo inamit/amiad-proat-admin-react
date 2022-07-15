@@ -1,26 +1,28 @@
 import React from 'react';
 import logo from './logo.svg';
 import './App.css';
+import { useRoutes } from 'react-router';
+import routes from './router/router';
+import ThemeProvider from './theme/ThemeProvider';
+import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
+import heLocale from 'date-fns/locale/he';
+import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
+import CssBaseline from '@mui/material/CssBaseline';
 
-function App() {
+const App = () => {
+  const content = useRoutes(routes);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <ThemeProvider>
+      <LocalizationProvider
+        dateAdapter={AdapterDateFns}
+        adapterLocale={heLocale}
+      >
+        <CssBaseline />
+        {content}
+      </LocalizationProvider>
+    </ThemeProvider>
   );
-}
+};
 
 export default App;
